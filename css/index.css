@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap');
+h1, h2, h3{
+    font-family: 'Ubuntu Mono', monospace !important;
+}
+#mainWrapper{
+    display: flex;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+#bgWrapper{
+    position: absolute;
+    background-image: url("../res/background.jpeg") !important;
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    filter: blur(100px);
+}
+
+#loginWrapper{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top:50%;
+    left:50%;
+    width:90%;
+    height: 50%;
+    max-width: 500px;
+    min-height: 500px;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    border-radius: 10px;
+    opacity: 0.75;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
+
+#loginGreetings{
+    margin: -20px 0 40px 0;
+    /*font-family: 'Ubuntu Mono', monospace;*/
+}
+
+#chatWrapper{
+    display: none;
+    position: absolute;
+    height: 80%;
+    width: 70%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 3px rgba(0,0,0,0.8);
+    box-shadow: 0px 0px 10px #000000;
+    background-color: rgba(255,255,255,0.75);
+}
+
+#lstWrapper{
+    padding: 10px;
+}
+
+#chatGreeting{
+    height: 64px;
+}
+
+#msgWrapper{
+    background-color: rgba(200,200,200,0.75);
+
+    padding: 10px;
+}
+
+#msgBox{
+    position: relative;
+    height: 75%;
+    border-bottom-color: rgba(50,50,50,0.7);
+    border-bottom: 3px;
+    border-bottom-style: solid;
+}
+
+.row{
+    margin: 0 !important;
+    width: 100%;
+}
+
+.selector{
+    display: flex;
+    padding: 10px 0;
+    width: 50% !important;
+    margin: 0 !important;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
