@@ -11,22 +11,40 @@
 <div id="mainWrapper">
     <div class="row" id="chatWrapper">
         <div class="col-md-3" id="lstWrapper">
-            <div class="row" id="chatGreeting">
+            <div class="row" id="chatGreeting" style="height: 10%">
                 <h1>Welcome, Barry</h1>
             </div>
-            <div class="row">
-                <ul class="nav nav-pills">
-                    <li role="presentation" class="active selector" id="buttonUser"><a>Users</a></li>
-                    <li role="presentation" class="selector" id="buttonGroup"><a>Groups</a></li>
-                </ul>
-                <ul class="list-group act" id="user-group-ul">
-                </ul>
+            <div class="row" style="position:relative; height:90%">
+                <div class="col-md-12" style="position: relative; height:100%; padding:0 10px 0 0">
+                    <div class="row" style="position: relative; height:10%">
+                        <ul class="nav nav-pills">
+                            <li role="presentation" class="active selector" id="buttonGroup"><a>Groups</a></li>
+                            <li role="presentation" class="selector" id="buttonUser"><a>Users</a></li>
+                        </ul>
+                    </div>
+                    <div class="row" style="position: relative; height:82%; overflow-y: auto">
+                        <ul class="list-group act" id="group-ul"><li style='margin-bottom: 20px' class="input-group">
+                                <input id="grpName" type="text" class="form-control" aria-label="..." placeholder="Group Name...">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-info" type="button" id='newGrp'>Add New Group</button>
+                                </span>
+                            </li></ul>
+                        <ul class="list-group act" id="user-ul" style="display: none;"></ul>
+                    </div>
+                    <div class="row" style="position: relative; height:10%">
+                        <button type="button" class="btn btn-danger" id="logoutButton">Logout</button>
+                    </div>
+                </div>
             </div>
-            <button type="button" class="btn btn-danger" id="logoutButton">Logout</button>
         </div>
         <div class="col-md-9" id="msgWrapper">
             <div class="row" id="msgBox">
-                <p id="msgBoxInner"></p>
+                <p id="msgBoxInner">
+                    Welcome to SocketChat!<br><br>
+                    You are currently in: Public Group-Broadcast.<br><br>
+                    You can setup a new group or select a user to launch a private chat.<br><br>
+                    Enjoy chatting! :)<br><br>
+                </p>
             </div>
             <div class="row" id="msgInput">
                 <textarea id="msgInputInner"></textarea>
@@ -63,10 +81,6 @@
 <script src="{{ url_for('static',filename='js/index.js') }}"></script>
 <script src="https://cdn.socket.io/4.0.1/socket.io.min.js" integrity="sha384-LzhRnpGmQP+lOvWruF/lgkcqD+WDVt9fU3H4BWmwP5u5LTmkUGafMcpZKNObVMLU" crossorigin="anonymous"></script>
 <script type="text/javascript" charset="utf-8">
-    var s = io('http://127.0.0.1:6060');
-    s.on('connect', function() {
-        console.log("connected to socket");
-        s.emit('my event', {data: 'I\'m connected!'});
-    });
+
 </script>
 </html>

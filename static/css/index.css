@@ -64,6 +64,11 @@ h1, h2, h3{
     padding: 10px;
 }
 
+#addGrpButton{
+    position: absolute;
+    width: 100%;
+}
+
 
 #msgWrapper{
     background-color: rgba(200,200,200,0.75);
@@ -88,7 +93,8 @@ h1, h2, h3{
     border: 0;
     height: 100%;
     width: 100%;
-    vertical-align: bottom;
+    overflow-y: auto;
+    padding-bottom: 10px;
 }
 
 #msgInput{
@@ -134,11 +140,15 @@ h1, h2, h3{
 #logoutButton{
     position: absolute;
     bottom: 0;
-    width: 90%;
+    width: 100%;
 }
 
 .selector[class~="active"] a{
     background-color: darkgrey !important;
+}
+
+#user-group-ul{
+    margin:0;
 }
 
 .chat-user-group{
