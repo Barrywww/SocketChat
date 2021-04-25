@@ -3,14 +3,14 @@ let username;
 let chatInput;
 let msgBox;
 let grpn = "Broadcast";
-let SERVER_ADDR = "http://127.0.0.1:6060";
+let SERVER_ADDR = "http://127.0.0.1:8080";
 let currentActive;
 let currentChatType = "group";
 let currentSelectorType = "group";
 
 const initSocket = function (){
     return new Promise((resolve, reject) => {
-        socket = io('http://127.0.0.1:6060');
+        socket = io(SERVER_ADDR);
         socket.on('connect', () =>{
             console.log("connected to socket");
             socket.send(JSON.stringify({"id": socket.id, "usn": username, "type":"connect"}))
@@ -33,6 +33,11 @@ const initSocket = function (){
 window.onload = function () {
     console.log("script loaded");
     document.getElementById("loginButton").addEventListener("click", loginCheck);
+    document.onkeydown = function(e){
+        if(e.keyCode === 13){
+            loginCheck();
+        }
+    }
 }
 
 window.onunload = async function (e){
@@ -93,11 +98,18 @@ function onLogin(){
     let greetings = document.getElementById("loginGreetings");
     let cGrettings = document.getElementById("chatGreeting");
 
+    document.onkeydown = function(e){
+        if(e.keyCode === 13){
+            sendMsg();
+        }
+    }
+
+
     initSocket().then(() => {
         localStorage.setItem("username", username);
         localStorage.setItem("loggedIn", "true");
         greetings.innerHTML = "<h1>Welcome, " + username + "</h1>";
-        cGrettings.innerHTML = "<h1>Welcome, " + username + "</h1>";
+        cGrettings.innerHTML = "Welcome, " + username;
         for(let i=21; i<=100; i++){
             setTimeout(() => {
                 console.log(i);
@@ -140,7 +152,7 @@ function onLogin(){
             else{
                 refreshUsers();
             }
-        }, 5000);
+        }, 30000);
     })
 }
 
@@ -284,11 +296,16 @@ function joinGroupChat(grpName){
         "content": " joined the chat.",
         "joinType": "group"
     }
+    grpn = grpName;
     socket.send(JSON.stringify(msg));
 }
 
 function sendMsg(){
-    let msg = chatInput.value;
+    let msg = chatInput.value.trim();
+    if (msg.length === 0){
+        alert("Blank message not allowed");
+        return;
+    }
     chatInput.value = "";
     let tgt = currentActive.innerText;
     let m = {

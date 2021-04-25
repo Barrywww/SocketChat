@@ -53,9 +53,9 @@ def logout(username):
 @socket.on('message')
 def handle_message(msg):
     msg = json.loads(msg)
-    print("Received message")
-    print(msg)
-    print(users)
+    # print("Received message")
+    # print(msg)
+    # print(users)
     if msg["type"] == "connect":
         user_id = msg["id"]
         username = msg["usn"]
@@ -71,32 +71,7 @@ def handle_message(msg):
         us2grp[username] = "Broadcast"
         us2us[username] = ''
         print("Connected to '%s'" % username)
-
-    elif msg["type"] == "msg":
-        content = msg["content"]
-        source = msg["src"]
-        target = msg["tgt"]
-
-        msg2c = source + ": " + content
-        if msg["sendType"] == "group":
-            print(groups[target])
-            print(msg)
-            for member in groups[target]:
-                if (us2grp[member] == target):
-                    send(json.dumps(msg2c), to=usn2id[member])
-        elif msg["sendType"] == "private":
-            if target not in users:
-                msg2c = target + " is now offline."
-                send(json.dumps(msg2c), to=usn2id[source])
-            elif us2us[target] == source:
-                send(json.dumps(msg2c), to=usn2id[target])
-                send(json.dumps(msg2c), to=usn2id[source])
-            else:
-                msg2c = target + " is now in another chat. Please try again later."
-                send(json.dumps(msg2c), to=usn2id[source])
-
-        print("'%s' sent a message '%s' to '%s'." % (source, content, target))
-
+    
     elif msg["type"] == "join":
         username = msg["usn"]
         target = msg["tgt"]
@@ -122,7 +97,7 @@ def handle_message(msg):
                 msg2c = username + " has entered the chat."
                 send(json.dumps(msg2c), to=usn2id[target])
             else:
-                msg2c = "$i" + username + " has initiated a chat with you!"
+                msg2c = ">>>>>>>>>>>>>>>>>>>><br>" + username + " wants to initiate a chat with you! Please check in the user panel.<br>>>>>>>>>>>>>>>>>>>>>"
                 send(json.dumps(msg2c), to=usn2id[target])
         elif msg["joinType"] == "group":
             us2grp[username] = target
@@ -135,6 +110,31 @@ def handle_message(msg):
 
         print("'%s' joined the chat with '%s'." % (username, target))
 
+    elif msg["type"] == "msg":
+        source = msg["src"]
+        target = msg["tgt"]
+        content = msg["content"]
+
+        msg2c = source + ": " + content
+        if msg["sendType"] == "group":
+            # print(groups[target])
+            # print(msg)
+            for member in groups[target]:
+                if (us2grp[member] == target):
+                    send(json.dumps(msg2c), to=usn2id[member])
+        elif msg["sendType"] == "private":
+            if target not in users:
+                msg2c = target + " is now offline."
+                send(json.dumps(msg2c), to=usn2id[source])
+            elif us2us[target] == source:
+                send(json.dumps(msg2c), to=usn2id[target])
+                send(json.dumps(msg2c), to=usn2id[source])
+            else:
+                msg2c = target + " is now in another chat. Please try again later."
+                send(json.dumps(msg2c), to=usn2id[source])
+
+        print("'%s' sent a message '%s' to '%s'." % (source, content, target))
+    
     elif msg["type"] == "create":
         username = msg["usn"]
         groupname = msg["grpnm"]
@@ -170,4 +170,4 @@ def handle_message(msg):
 
 
 if __name__ == "__main__":
-    socket.run(app, debug=True, host="127.0.0.1", port=6060)
+    socket.run(app, debug=True, host="127.0.0.1", port=8080)

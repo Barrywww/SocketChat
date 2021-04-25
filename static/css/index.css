@@ -95,6 +95,7 @@ h1, h2, h3{
     width: 100%;
     overflow-y: auto;
     padding-bottom: 10px;
+    font-size:1.6rem;
 }
 
 #msgInput{
@@ -111,7 +112,7 @@ h1, h2, h3{
     height: 100%;
     width: 100%;
     vertical-align: top;
-    font-size: 2rem;
+    font-size: 1.6rem;
 }
 
 #sendButton{
@@ -140,7 +141,7 @@ h1, h2, h3{
 #logoutButton{
     position: absolute;
     bottom: 0;
-    width: 100%;
+    width: 90%;
 }
 
 .selector[class~="active"] a{
